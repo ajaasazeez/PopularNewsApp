@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/popularNewsFragment">
+
+    <fragment
+        android:id="@+id/popularNewsFragment"
+        android:name="com.example.popularnewsapp.ui.popularNews.PopularNewsFragment"
+        android:label="PopularNewsFragment" />
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.example.popularnewsapp.ui.newsDetail.NewsDetailFragment"
+        android:label="NewsDetailFragment" />
+</navigation>
