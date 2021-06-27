@@ -7,9 +7,17 @@
     <fragment
         android:id="@+id/popularNewsFragment"
         android:name="com.example.popularnewsapp.ui.popularNews.PopularNewsFragment"
-        android:label="PopularNewsFragment" />
+        android:label="PopularNewsFragment" >
+        <action
+            android:id="@+id/action_popularNewsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="com.example.popularnewsapp.ui.newsDetail.NewsDetailFragment"
-        android:label="NewsDetailFragment" />
+        android:label="NewsDetailFragment" >
+        <argument
+            android:name="newsModel"
+            app:argType="com.example.popularnewsapp.model.NewsModel" />
+    </fragment>
 </navigation>

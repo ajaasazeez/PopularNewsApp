@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popularnewsapp.databinding.ItemPopularNewsBinding
 import com.example.popularnewsapp.model.NewsModel
 
-class PopularNewsAdapter() :
+class PopularNewsAdapter(val itemClickListener: OnItemClickListener) :
     ListAdapter<NewsModel, PopularNewsAdapter.PopularNewsViewHolder>(DiffCallback) {
     object DiffCallback : DiffUtil.ItemCallback<NewsModel>() {
         override fun areItemsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
@@ -33,7 +33,12 @@ class PopularNewsAdapter() :
         val currentArticle = getItem(position)
         holder.binding.article = currentArticle
         holder.binding.executePendingBindings()
+        holder.itemView.setOnClickListener { itemClickListener.onItemClick(currentArticle) }
     }
 
     class PopularNewsViewHolder(val binding: ItemPopularNewsBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface OnItemClickListener {
+        fun onItemClick(item: NewsModel)
+    }
 }

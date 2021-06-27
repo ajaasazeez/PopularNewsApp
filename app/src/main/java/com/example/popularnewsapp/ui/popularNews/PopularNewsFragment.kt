@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.popularnewsapp.R
 import com.example.popularnewsapp.databinding.FragmentPopularNewsBinding
 import com.example.popularnewsapp.model.NewsModel
@@ -17,10 +18,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class PopularNewsFragment : Fragment() {
+class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
     private lateinit var binding: FragmentPopularNewsBinding
     private val viewModel: PopularNewsViewModel by viewModels()
-    private val popularNewsAdapter = PopularNewsAdapter()
+    private val popularNewsAdapter = PopularNewsAdapter(this)
     private var articleList = ArrayList<NewsModel>()
 
 
@@ -67,5 +68,10 @@ class PopularNewsFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onItemClick(item: NewsModel) {
+        val direction = PopularNewsFragmentDirections.actionPopularNewsFragmentToNewsDetailFragment(item)
+        findNavController().navigate(direction)
     }
 }

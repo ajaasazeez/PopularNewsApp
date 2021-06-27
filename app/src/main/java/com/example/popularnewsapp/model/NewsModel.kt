@@ -1,7 +1,10 @@
 package com.example.popularnewsapp.model
 
-import java.util.*
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+
+@Parcelize
 data class NewsModel (
    val uri : String,
    val url : String,
@@ -24,4 +27,4 @@ data class NewsModel (
    val per_facet : List<String>,
    val geo_facet : List<String>,
    val eta_id : Int
-)
+):Parcelable
