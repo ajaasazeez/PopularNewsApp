@@ -22,7 +22,7 @@ class PopularNewsViewModel@Inject constructor(private val repository: PopularNew
         getTopArticles()
     }
 
-    private fun getTopArticles() = viewModelScope.launch {
+     fun getTopArticles() = viewModelScope.launch {
         if (networkHelper.isNetworkAvailable()) {
             repository.getPopularNews().collect {
                 topArticles.postValue(it)

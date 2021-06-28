@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PopularNewsApp</string>
+    <string name="snackbar_msg">No internet connection</string>
+    <string name="snackbar_action">Retry</string>
 </resources>

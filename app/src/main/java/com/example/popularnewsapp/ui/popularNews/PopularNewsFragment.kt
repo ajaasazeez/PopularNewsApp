@@ -1,11 +1,9 @@
 package com.example.popularnewsapp.ui.popularNews
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,15 +14,15 @@ import com.example.popularnewsapp.databinding.FragmentPopularNewsBinding
 import com.example.popularnewsapp.model.NewsModel
 import com.example.popularnewsapp.ui.MainActivity
 import com.example.popularnewsapp.util.Result
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
     private lateinit var binding: FragmentPopularNewsBinding
     private val viewModel: PopularNewsViewModel by viewModels()
     private val popularNewsAdapter = PopularNewsAdapter(this)
-    private lateinit var mainActivity:MainActivity
+    private lateinit var mainActivity: MainActivity
 
 
     override fun onCreateView(
@@ -63,7 +61,7 @@ class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
 
                 Result.Status.ERROR -> {
                     mainActivity.hideLoadingWidget()
-                    Toast.makeText(requireContext(),result.message,Toast.LENGTH_SHORT).show()
+                    showSnackBar()
                 }
 
                 Result.Status.LOADING -> {
@@ -73,8 +71,21 @@ class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
         })
     }
 
+    private fun showSnackBar() {
+        val snack = Snackbar.make(
+            binding.root,
+            getString(R.string.snackbar_msg),
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snack.setAction(getString(R.string.snackbar_action)) {
+            viewModel.getTopArticles()
+        }
+        snack.show()
+    }
+
     override fun onItemClick(item: NewsModel) {
-        val direction = PopularNewsFragmentDirections.actionPopularNewsFragmentToNewsDetailFragment(item)
+        val direction =
+            PopularNewsFragmentDirections.actionPopularNewsFragmentToNewsDetailFragment(item)
         findNavController().navigate(direction)
     }
 }
