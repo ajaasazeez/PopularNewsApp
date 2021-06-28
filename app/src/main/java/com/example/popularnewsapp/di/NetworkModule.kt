@@ -1,6 +1,9 @@
 package com.example.popularnewsapp.di
 
+import com.example.popularnewsapp.data.remote.PopularNewsRemoteDataSource
 import com.example.popularnewsapp.network.ApiService
+import com.example.popularnewsapp.repository.PopularNewsRepository
+import com.example.popularnewsapp.repository.PopularNewsRepositoryImpl
 import com.example.popularnewsapp.util.ApiConstants
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -53,4 +56,10 @@ object NetworkModule {
     fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun providePopularRepository(
+        remoteDataSource: PopularNewsRemoteDataSource
+    )=PopularNewsRepositoryImpl(remoteDataSource) as PopularNewsRepository
 }

@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.popularnewsapp.model.ResponseModel
-import com.example.popularnewsapp.repository.PopularNewsRepo
+import com.example.popularnewsapp.repository.PopularNewsRepository
+import com.example.popularnewsapp.repository.PopularNewsRepositoryImpl
 import com.example.popularnewsapp.util.NetworkHelper
 import com.example.popularnewsapp.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularNewsViewModel@Inject constructor(private val repository: PopularNewsRepo,
+class PopularNewsViewModel@Inject constructor(private val repository: PopularNewsRepository,
                                               private val networkHelper: NetworkHelper
 ):ViewModel() {
     val topArticles: MutableLiveData<Result<ResponseModel>> = MutableLiveData()
