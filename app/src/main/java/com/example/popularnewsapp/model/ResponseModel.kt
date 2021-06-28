@@ -1,6 +1,5 @@
 package com.example.popularnewsapp.model
 
-import java.util.*
 
 data class ResponseModel(
     val status : String,

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.popularnewsapp.R
 import com.example.popularnewsapp.databinding.FragmentPopularNewsBinding
 import com.example.popularnewsapp.model.NewsModel
+import com.example.popularnewsapp.ui.MainActivity
 import com.example.popularnewsapp.util.Result
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -22,7 +24,7 @@ class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
     private lateinit var binding: FragmentPopularNewsBinding
     private val viewModel: PopularNewsViewModel by viewModels()
     private val popularNewsAdapter = PopularNewsAdapter(this)
-    private var articleList = ArrayList<NewsModel>()
+    private lateinit var mainActivity:MainActivity
 
 
     override fun onCreateView(
@@ -42,6 +44,7 @@ class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainActivity = activity as MainActivity
         setObservers()
 
     }
@@ -52,19 +55,19 @@ class PopularNewsFragment : Fragment(), PopularNewsAdapter.OnItemClickListener {
 
             when (result.status) {
                 Result.Status.SUCCESS -> {
+                    mainActivity.hideLoadingWidget()
                     result.data?.results.let {
-                        Log.e("api success", "true $it")
-                        articleList.addAll(it!!)
                         popularNewsAdapter.submitList(it)
                     }
                 }
 
                 Result.Status.ERROR -> {
-                    Log.e("api success", "error")
+                    mainActivity.hideLoadingWidget()
+                    Toast.makeText(requireContext(),result.message,Toast.LENGTH_SHORT).show()
                 }
 
                 Result.Status.LOADING -> {
-                    Log.e("api success", "loading")
+                    mainActivity.showLoadingWidget()
                 }
             }
         })

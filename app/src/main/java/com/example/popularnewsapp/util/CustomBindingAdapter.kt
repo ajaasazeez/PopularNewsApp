@@ -1,7 +1,8 @@
-package com.example.popularnewsapp.ui.popularNews
+package com.example.popularnewsapp.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+
 
 @BindingAdapter(value = ["setAdapter"])
 fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>) {
