@@ -48,9 +48,4 @@ object NetworkModule {
         return okHttpClientBuilder.build()
     }
 
-    @Singleton
-    @Provides
-    fun provideApi(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
 }

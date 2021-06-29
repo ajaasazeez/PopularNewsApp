@@ -30,7 +30,7 @@ class PopularNewsRemoteDataSource @Inject constructor(private val retrofit: Retr
                 Result.error(errorResponse?.status_message ?: defaultErrorMessage, errorResponse)
             }
         } catch (e: Throwable) {
-            Result.error("Unknown Error", null)
+            Result.error(e.message.toString(), null)
         }
     }
 }
